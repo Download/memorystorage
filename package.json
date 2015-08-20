@@ -1,0 +1,41 @@
+{
+  "name": "memstore",
+  "version": "0.9.0",
+  "description": "Memory-backed implementation of the Web Storage API",
+  "main": "src/memstore.js",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/download/memstore.git"
+  },
+  "keywords": [
+    "javascript",
+    "persistence",
+    "persistent",
+    "objects",
+    "localStorage"
+  ],
+  "author": {
+    "name": "Stijn de Witt",
+    "email": "StijnDeWitt@hotmail.com",
+    "url": "http://StijnDeWitt.com"
+  },
+  "contributors": [],
+  "copyright": "Copyright 2015 by [Stijn de Witt](http://StijnDeWitt.com). Some rights reserved.",
+  "license": "Licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).",
+  "bugs": {
+    "url": "https://github.com/adrianmay/rhaboo/issues"
+  },
+  "homepage": "http://download.github.io/memstore",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "load-grunt-tasks": "~1.0.0",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-uglify": "~0.6.0",
+    "grunt-jsdoc": "~0.6.7"
+  },
+  "dependencies": {
+  }
+}
