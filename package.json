@@ -1,6 +1,6 @@
 {
   "name": "memorystorage",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "Memory-backed implementation of the Web Storage API",
   "main": "src/memorystorage.js",
   "dist": {

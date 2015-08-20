@@ -1,17 +1,17 @@
-# memorystorage <sub><sup>v0.9.0</sup></sub>
+# memorystorage <sub><sup>v0.9.1</sup></sub>
 Memory-backed storage object that implements the [Web Storage API](http://www.w3.org/TR/webstorage/).
 
 ## Download
-* [memorystorage.js](https://cdn.rawgit.com/download/memorystorage/0.9.0/src/memorystorage.js) (~3kB, commented)
-* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.9.0/dist/memorystorage.min.js) (~2kB, minified)
-* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.9.0/dist/memorystorage.min.js.map) (~2kB, debug map file)
+* [memorystorage.js](https://cdn.rawgit.com/download/memorystorage/0.9.1/src/memorystorage.js) (~3kB, commented)
+* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.9.1/dist/memorystorage.min.js) (~2kB, minified)
+* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.9.1/dist/memorystorage.min.js.map) (~2kB, debug map file)
 
 ## Include on your page
 `memorystorage` can be used directly from CDN, or from a local script file.
 
 ### CDN
 ```xml
-<script src="https://cdn.rawgit.com/download/memorystorage/0.9.0/dist/memorystorage.min.js"></script>
+<script src="https://cdn.rawgit.com/download/memorystorage/0.9.1/dist/memorystorage.min.js"></script>
 ```
 
 ### Local script file
