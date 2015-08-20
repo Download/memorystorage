@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>DocStrap Source: memstore.js</title>
+	<title>DocStrap Module: memorystorage</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -27,14 +27,14 @@
 			<li class="dropdown">
 				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-memstore.html">memstore</a></li>
+					<li><a href="module-memorystorage.html">memorystorage</a></li>
 				</ul>
 			</li>
 			
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="module-memstore.MemoryStorage.html">memstore.MemoryStorage</a></li>
+					<li><a href="module-memorystorage.MemoryStorage.html">memorystorage.MemoryStorage</a></li>
 				</ul>
 			</li>
 			
@@ -48,90 +48,106 @@
 <div class="row">
 
 	
-	<div class="col-md-12">
+	<div class="col-md-8">
 	
 		<div id="main">
-    		<h1 class="page-title">Source: memstore.js</h1>
+    		<h1 class="page-title">Module: memorystorage</h1>
 			
 
-		<h1 class="page-title">Source: memstore.js</h1>
-    
+	<h1 class="page-title">Module: memorystorage</h1>
 <section>
-	<article>
-		<pre
-			class="sunlight-highlight-javascript linenums">/*! 
- * memstore.js - A memory-backed implementation of the Web Storage API.
- *
- * @copyright Copyright 2015 by Stijn de Witt. Some rights reserved. 
- * @license Licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
- */
-(function (u,m,d) {
-    if (typeof define === 'function' &amp;&amp; define.amd) {define(d);} 
-    else if (typeof exports === 'object') {module.exports = d();} 
-    else {u[m] = d();}
-}(this, 'MemoryStorage', function(){
-	'use strict';
-	
-	/** @module memstore */
-	
-	/**
-	 * Creates a new MemoryStorage object implementing the &lt;a href="http://www.w3.org/TR/webstorage/">Web Storage API&lt;/a> using memory.
-	 * 
-	 * &lt;p>If no arguments are given, the created memory storage object will read from and write to the
-	 * &lt;code>global&lt;/code> memory storage. If a string argument is given, the new storage object
-	 * will read from and write to it's own segment of memory. Any data written to such a memory
-	 * storage object will only show up in other memory storage objects that have been created with
-	 * the same id. This data will not show up in the &lt;code>global&lt;/code> memory space. As such it 
-	 * is recommended to always construct a memory storage object with a unique string id as argument.&lt;/p> 
-	 * 
-	 * @param id Optional string argument used to isolate this memory storage object from others.
-	 * @alias module:memstore.MemoryStorage
-	 * @class 
-	 */
-	function MemoryStorage(id) {
-		this.id = id || 'global';
-		if (!storage[this.id]) {storage[this.id] = {};}
-		var keys = Object.keys(storage[this.id]);
-		Object.defineProperty(this, 'length', {
-			enumerable: true,
-			get: function(){return keys.length;}
-		});		
-		this.getItem = function MemoryStorage_getItem(key) {
-			return storage[this.id][key];
-		};
-		this.setItem = function MemoryStorage_setItem(key, val) {
-			if (! (key in storage[this.id])) {
-				keys.push(key);
-			}
-			storage[this.id][key] = val;
-		};
-		this.removeItem = function MemoryStorage_removeItem(key) {
-			if (key in storage[this.id]) {
-				keys.splice(keys.indexOf(key), 1);
-				delete storage[this.id][key];
-			}
-		};
-		this.key = function MemoryStorage_key(idx) {
-			return idx >= 0 &amp;&amp; idx &lt; keys.length ? keys[idx] : null;
-		};
-		this.clear = function MemoryStorage_clear() {
-			for (var i=0; i&lt;keys.length; i++) {
-				delete storage[this.id][keys[i]];
-			}
-			keys.splice(0, keys.length);
-		};
-	}
-	
-	// Used to store all data
-	var storage = {};
 
-	// EXPOSE
-	return MemoryStorage;
-}));
-</pre>
-	</article>
+<header>
+    
+</header>
+
+
+<article>
+    <div class="container-overview">
+    
+        
+
+        
+<dl class="details">
+	
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="memorystorage.js.html">memorystorage.js</a>,
+				 <a href="memorystorage.js.html#sunlight-1-line-14">line 14</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+        
+    
+    </div>
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Classes</h3>
+
+        <dl>
+            <dt><a href="module-memorystorage.MemoryStorage.html">MemoryStorage</a></dt>
+            <dd></dd>
+        </dl>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
 </section>
-
 
 
 
@@ -141,6 +157,10 @@
 
 	<div class="clearfix"></div>
 
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3"></div>
+		</div>
 	
 
 </div>
@@ -157,7 +177,7 @@
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on Thu Aug 20th 2015 using the <a
+	on Fri Aug 21st 2015 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>

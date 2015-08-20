@@ -1,5 +1,5 @@
 /*! 
- * memstore.js - A memory-backed implementation of the Web Storage API.
+ * memorystorage.js - A memory-backed implementation of the Web Storage API.
  *
  * @copyright Copyright 2015 by Stijn de Witt. Some rights reserved. 
  * @license Licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
@@ -11,7 +11,7 @@
 }(this, 'MemoryStorage', function(){
 	'use strict';
 	
-	/** @module memstore */
+	/** @module memorystorage */
 	
 	/**
 	 * Creates a new MemoryStorage object implementing the <a href="http://www.w3.org/TR/webstorage/">Web Storage API</a> using memory.
@@ -24,7 +24,7 @@
 	 * is recommended to always construct a memory storage object with a unique string id as argument.</p> 
 	 * 
 	 * @param id Optional string argument used to isolate this memory storage object from others.
-	 * @alias module:memstore.MemoryStorage
+	 * @alias module:memorystorage.MemoryStorage
 	 * @class 
 	 */
 	function MemoryStorage(id) {

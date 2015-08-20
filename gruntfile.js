@@ -1,26 +1,27 @@
 module.exports = function(grunt) {
 	require('load-grunt-tasks')(grunt);
 
+	var pkg = grunt.file.readJSON('package.json');
 	grunt.initConfig({
 		fave_algo: 'sand',
-		pkg: grunt.file.readJSON('package.json'),
+		pkg: pkg,
 		jshint: {
 			options : {
 				jshintrc : '.jshintrc'
 			},
-			all: [ 'src/memstore.js' ]
+			all: [ '<%= pkg.main %>' ]
 		},
 		uglify: {
 			options:{
 				banner : '/*! [<%= pkg.name %> <%= pkg.version %>](<%= pkg.homepage %>) <%= pkg.copyright %> <%= pkg.license %> */',
 				mangle: {
-					except: ['MemoryStorage', 'u','m','d']
+					except: pkg.exports.concat(['u','m','d'])
 				},
 				sourceMap: true
 			},
 			admin: {
 				files: {
-					'dist/memstore.min.js': [ 'src/memstore.js']
+					'<%= pkg.dist.min %>': ['<%= pkg.main %>']
 				}
 			}
 		},
