@@ -1,20 +1,24 @@
-# memstore
+# memstore <sub><sup>v0.9.0</sup></sub>
 Memory-backed storage object that implements the [Web Storage API](http://www.w3.org/TR/webstorage/).
 
 ## Download
-* [memstore.js](https://cdn.rawgit.com/download/memstore/0.0.1/src/memstore.js) (~3kB, commented)
-* [memstore.min.js](https://cdn.rawgit.com/download/memstore/0.0.1/dist/memstore.min.js) (~2kB, minified)
-* [memstore.min.js.map](https://cdn.rawgit.com/download/memstore/0.0.1/dist/memstore.min.js.map) (~2kB, debug map file)
+* [memstore.js](https://cdn.rawgit.com/download/memstore/0.9.0/src/memstore.js) (~3kB, commented)
+* [memstore.min.js](https://cdn.rawgit.com/download/memstore/0.9.0/dist/memstore.min.js) (~2kB, minified)
+* [memstore.min.js.map](https://cdn.rawgit.com/download/memstore/0.9.0/dist/memstore.min.js.map) (~2kB, debug map file)
 
 ## Include on your page
 `memstore` can be used directly from CDN, or from a local script file.
 
 ### CDN
-`<script src="https://cdn.rawgit.com/download/memstore/0.0.1/dist/memstore.min.js"></script>`
+```xml
+<script src="https://cdn.rawgit.com/download/memstore/0.9.0/dist/memstore.min.js"></script>
+```
 
 ### Local script file
 Download memstore.min.js, place it in a folder `lib` in the root of your website and include it like this:
-`<script src="lib/memstore.min.js"></script>`
+```xml
+<script src="lib/memstore.min.js"></script>
+```
 
 ## Create a memory storage object
 ```javascript
