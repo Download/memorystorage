@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640">
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen">
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Memorystorage by Download</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/Download/memorystorage">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Memorystorage</h1>
+            <h2>Memory-backed storage object that implements the Web Storage API</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/Download/memorystorage/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/Download/memorystorage/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1>
+<a id="memorystorage-v092" class="anchor" href="#memorystorage-v092" aria-hidden="true"><span class="octicon octicon-link"></span></a>memorystorage <sub><sup>v0.9.2</sup></sub>
+</h1>
+
+<p>Memory-backed storage object that implements the <a href="http://www.w3.org/TR/webstorage/">Web Storage API</a>.</p>
+
+<h2>
+<a id="download" class="anchor" href="#download" aria-hidden="true"><span class="octicon octicon-link"></span></a>Download</h2>
+
+<ul>
+<li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.2/src/memorystorage.js">memorystorage.js</a> (~3kB, commented)</li>
+<li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.2/dist/memorystorage.min.js">memorystorage.min.js</a> (~2kB, minified)</li>
+<li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.2/dist/memorystorage.min.js.map">memorystorage.min.js.map</a> (~2kB, debug map file)</li>
+</ul>
+
+<h2>
+<a id="include-on-your-page" class="anchor" href="#include-on-your-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Include on your page</h2>
+
+<p><code>memorystorage</code> can be used directly from CDN, or from a local script file.</p>
+
+<h3>
+<a id="cdn" class="anchor" href="#cdn" aria-hidden="true"><span class="octicon octicon-link"></span></a>CDN</h3>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdn.rawgit.com/download/memorystorage/0.9.2/dist/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<h3>
+<a id="local-script-file" class="anchor" href="#local-script-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Local script file</h3>
+
+<p>Download memorystorage.min.js, place it in a folder <code>lib</code> in the root of your website and include it like this:</p>
+
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>lib/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<h2>
+<a id="create-a-memory-storage-object" class="anchor" href="#create-a-memory-storage-object" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a memory storage object</h2>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> memoryStorage <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>my-app<span class="pl-pds">'</span></span>);</pre></div>
+
+<h2>
+<a id="use-it" class="anchor" href="#use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use it</h2>
+
+<div class="highlight highlight-javascript"><pre>memoryStorage.<span class="pl-c1">setItem</span>(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Hello MemoryStorage!<span class="pl-pds">'</span></span>);
+memoryStorage.<span class="pl-c1">setItem</span>(<span class="pl-s"><span class="pl-pds">'</span>My object<span class="pl-pds">'</span></span>, <span class="pl-c1">JSON</span>.<span class="pl-c1">stringify</span>({my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>}));
+<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">getItem</span>(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>)); <span class="pl-c">// alerts 'Hello MemoryStorage!'</span>
+<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '2'</span>
+<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">key</span>(<span class="pl-c1">1</span>)); <span class="pl-c">// alerts 'My object'</span>
+memoryStorage.<span class="pl-c1">removeItem</span>(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>);
+<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '1'</span>
+memoryStorage.<span class="pl-c1">clear</span>();
+<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '0'</span></pre></div>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/Download">Download</a> can be found on <a href="https://github.com/Download/memorystorage">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
