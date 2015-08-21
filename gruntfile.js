@@ -3,7 +3,6 @@ module.exports = function(grunt) {
 
 	var pkg = grunt.file.readJSON('package.json');
 	grunt.initConfig({
-		fave_algo: 'sand',
 		pkg: pkg,
 		jshint: {
 			options : {
