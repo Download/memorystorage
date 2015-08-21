@@ -1,5 +1,6 @@
 # memorystorage <sub><sup>v0.9.2</sup></sub>
-Memory-backed storage object that implements the [Web Storage API](http://www.w3.org/TR/webstorage/).
+Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR/webstorage/), making it a drop-in replacement for `localStorage` and `sessionStorage` in environments where these are not available. 
+[Project website](http://download.github.io/memorystorage)
 
 ## Download
 * [memorystorage.js](https://cdn.rawgit.com/download/memorystorage/0.9.2/src/memorystorage.js) (~3kB, commented)
