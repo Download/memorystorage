@@ -13,7 +13,7 @@ module.exports = function(grunt) {
 		},
 		uglify: {
 			options:{
-				banner : '/*! [<%= pkg.name %> <%= pkg.version %>](<%= pkg.homepage %>) <%= pkg.copyright %> <%= pkg.license %> */',
+				banner : '/*! [<%= pkg.name %> <%= pkg.version %>](<%= pkg.homepage %>) <%= pkg.copyright %> License: [<%= pkg.license %>](<%= pkg.licenseUrl %>) */',
 				mangle: {
 					except: pkg.exports.concat(['u','m','d'])
 				},
