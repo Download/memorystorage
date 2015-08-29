@@ -1,6 +1,6 @@
 {
   "name": "memorystorage",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Memory-backed implementation of the Web Storage API",
   "main": "src/memorystorage.js",
   "dist": {
@@ -18,9 +18,9 @@
   "keywords": [
     "javascript",
     "persistence",
-    "persistent",
-    "objects",
-    "localStorage"
+    "persistent objects",
+    "localStorage",
+    "Web Storage API"
   ],
   "author": {
     "name": "Stijn de Witt",
@@ -32,7 +32,7 @@
   "license": "CC-BY-4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
   "bugs": {
-    "url": "https://github.com/adrianmay/rhaboo/issues"
+    "url": "https://github.com/download/memorystorage/issues"
   },
   "homepage": "http://download.github.io/memorystorage",
   "devDependencies": {
