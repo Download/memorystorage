@@ -22,32 +22,42 @@
 	 * storage object will only show up in other memory storage objects that have been created with
 	 * the same id. This data will not show up in the <code>global</code> memory space. As such it 
 	 * is recommended to always construct a memory storage object with a unique string id as argument.</p> 
+	 *
+	 * <p>An options object may be passed as the second argument. At the moment only one option is available:</p>
+	 *
+	 * <table>
+	 *   <tr><th>Name</th><th>Type</th><th>Default</th><tr>
+	 *   <tr><td>idKey</td><td>String</td><td>'memId'</td><tr>
+	 * </table>
 	 * 
 	 * @param id Optional string argument used to isolate this memory storage object from others.
+	 * @param options Optional options object. 
+	 *
 	 * @alias module:memorystorage.MemoryStorage
 	 * @class 
 	 */
-	function MemoryStorage(id) {
-		this.id = id || 'global';
-		if (!storage[this.id]) {storage[this.id] = {};}
-		var keys = Object.keys(storage[this.id]);
+	function MemoryStorage(id, options) {
+		var idKey = options && options.idKey || 'memId';
+		this[idKey] = id || 'global';
+		if (!storage[this[idKey]]) {storage[this[idKey]] = {};}
+		var keys = Object.keys(storage[this[idKey]]);
 		Object.defineProperty(this, 'length', {
 			enumerable: true,
 			get: function(){return keys.length;}
 		});		
 		this.getItem = function MemoryStorage_getItem(key) {
-			return storage[this.id][key];
+			return storage[this[idKey]][key];
 		};
 		this.setItem = function MemoryStorage_setItem(key, val) {
-			if (! (key in storage[this.id])) {
+			if (! (key in storage[this[idKey]])) {
 				keys.push(key);
 			}
-			storage[this.id][key] = val;
+			storage[this[idKey]][key] = val;
 		};
 		this.removeItem = function MemoryStorage_removeItem(key) {
-			if (key in storage[this.id]) {
+			if (key in storage[this[idKey]]) {
 				keys.splice(keys.indexOf(key), 1);
-				delete storage[this.id][key];
+				delete storage[this[idKey]][key];
 			}
 		};
 		this.key = function MemoryStorage_key(idx) {
@@ -55,7 +65,7 @@
 		};
 		this.clear = function MemoryStorage_clear() {
 			for (var i=0; i<keys.length; i++) {
-				delete storage[this.id][keys[i]];
+				delete storage[this[idKey]][keys[i]];
 			}
 			keys.splice(0, keys.length);
 		};
