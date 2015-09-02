@@ -22,31 +22,57 @@ Download memorystorage.min.js, place it in a folder `lib` in the root of your we
 ```
 
 ## Create a memory storage object
+The `MemoryStorage` function creates (or returns) a storage object implementing the W3C Web Storage API.
+By default, scripts share a `global` storage object, so scripts can access and mutate each other's store
+object. To have MemoryStorage create a storage object that is isolated from other scripts, you pass in
+a unique ID which acts as a namespace:
+
 ```javascript
-var memoryStorage = new MemoryStorage('my-app');
+var isolated = new MemoryStorage('my-app'); // isolated from other scripts, recommended.
+```
+
+If you don't pass in an ID, or use the ID `'global'`, you get a globally shared storage object:
+
+```javascript
+var global = new MemoryStorage(); // will default to a globally shared storage object.
+var global2 = new MemoryStorage('global'); // effectively same as above
+```
+
+For your convenience, the constructor permits `new`-less invocation:
+```javascript
+var store = MemoryStorage('my-store');
+var global = MemoryStorage();
+```
+
+Instances of `MemoryStorage` expose an immutable `id` property that is set to
+the id the store was created with:
+
+```javascript
+alert(store.id); // alerts 'my-store'
+alert(global.id); // alerts 'global'
 ```
 
 ## Use it
 ```javascript
-memoryStorage.setItem('myString', 'Hello MemoryStorage!');
-memoryStorage.myObject = JSON.stringify({my: 'object'}));
-alert(memoryStorage.getItem('My string')); // alerts 'Hello MemoryStorage!'
-alert(memoryStorage['My string']); // alerts 'Hello MemoryStorage!'
-alert(memoryStorage.length); // alerts '2'
-alert(memoryStorage.key(1)); // alerts 'My object'
-memoryStorage.removeItem('My string');
-alert(memoryStorage.length); // alerts '1'
-memoryStorage.clear();
-alert(memoryStorage.length); // alerts '0'
+store.setItem('myString', 'Hello MemoryStorage!');
+store.myObject = JSON.stringify({my: 'object'}));
+alert(store.getItem('My string')); // alerts 'Hello MemoryStorage!'
+alert(store['My string']); // alerts 'Hello MemoryStorage!'
+alert(store.length); // alerts '2'
+alert(store.key(1)); // alerts 'My object'
+store.removeItem('My string');
+alert(store.length); // alerts '1'
+store.clear();
+alert(store.length); // alerts '0'
 ```
 
 ## Beyond the Web Storage API
-MemoryStorage is type-agnosic; it doesn't care about the type of data you store. 
+MemoryStorage is type-agnostic; it doesn't care about the type of data you store. 
 If you want to remain within the Web Storage API, you should only read and write strings, 
 however if you want you can store other types just as well:
 ```javascript
-memoryStorage.myObject = {my: 'object'};
-alert(memoryStorage.myObject.my); // alerts 'object'
+store.myObject = {my: 'object'};
+alert(store.myObject.my); // alerts 'object'
 var tree = {
 	nested: {
 		objects: {
@@ -54,8 +80,12 @@ var tree = {
 		}
 	}
 }
-memoryStorage.setItem('tree', tree);
-alert(memoryStorage.tree.nested.objects.working); // alerts 'Sure!'
+store.setItem('tree', tree);
+alert(store.tree.nested.objects.working); // alerts 'Sure!'
 ```
 
+## Copyright
+Copyright 2015 by Stijn de Witt. Some rights reserved.
 
+## License
+Licensed under the [Creative Commons Attribution 4.0 International (CC-BY-4.0)](https://creativecommons.org/licenses/by/4.0/) Open Source license.

@@ -15,7 +15,7 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 	assert.ok(store.length===2, 'value added correctly with index operators');
 	store.setItem('test2', 'data2');
 	assert.ok(store.length===3, 'three items added to store');
-	assert.ok(Object.keys(store).length == (6+3), "store has 9 enumerable properties (6 api methods + 3 stored items)");
+	assert.ok(Object.keys(store).length == (7+3), "store has 10 enumerable properties (id, 6 api methods + 3 stored items)");
 	assert.ok(store.getItem('test1')==='data1' && store.getItem('test2')==='data2', "retrieved values matches stored values");
 	var keyOrderBefore = '';
 	for (var i=0; i<store.length; i++) {
@@ -86,4 +86,13 @@ QUnit.test("Beyond W3C API Test", function( assert ) {
 	store.clear();
 });
 
+QUnit.test("New-less Construction Test", function( assert ) {
+	var store1 = MemoryStorage('local');
+	assert.ok(store1, 'Existing store is defined and not null');
+	assert.ok(store1 instanceof MemoryStorage, 'Existing store is instanceof MemoryStorage');
+	
+	var store2 = MemoryStorage('new-store');
+	assert.ok(store2, 'New store is defined and not null');
+	assert.ok(store2 instanceof MemoryStorage, 'New store is instanceof MemoryStorage');
+});
 

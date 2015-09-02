@@ -72,11 +72,12 @@
 }(this, 'MemoryStorage', function(){
 	'use strict';
 
-	var API = {'clear':1, 'getItem':1, 'key':1, 'length':1, 'removeItem':1, 'setItem':1},
+	// API methods and properties will be cloaked
+	var API = {'clear':1, 'getItem':1, 'id':1, 'key':1, 'length':1, 'removeItem':1, 'setItem':1},
 		API_LENGTH = Object.keys(API).length,
 		CLOAK = '__memorystorage_cloaked_items__';
 
-	// Used to store all data
+	// Used to store all memorystorage objects
 	var storage = {};
 
 	/** @module memorystorage */
@@ -97,41 +98,55 @@
 	 * @class 
 	 */
 	function MemoryStorage(id) {
+		// make sure id is assigned
 		id = id || 'global';
+		// try to get existing store
 		var result = storage[id]; 
+		// return it if found
 		if (result) {return result;}
 		
+		// make sure there is no harm in leaving out new in invocations to MemoryStorage
+		if (! (this instanceof MemoryStorage)) {return new MemoryStorage(id);}
+		
+		// create a new store and save a ref to it so we can get it back later
 		result = storage[id] = this;
 		// create a space to store 'cloaked' key/values: items that have a key
 		// that collides with Web Storage API method names.
 		var cloaked = {};
-		Object.defineProperty(this, CLOAK, {
+		Object.defineProperty(result, CLOAK, {
 			enumerable: false,
 			get: function(){return cloaked;}
 		});
-		Object.defineProperty(this, 'length', {
+		// Allow client code to read the id
+		Object.defineProperty(result, 'id', {
+			enumerable: true,
+			get: function(){return id;}
+		});
+		// Create the length property
+		Object.defineProperty(result, 'length', {
 			enumerable: true,
 			get: function(){
 				return Object.keys(this).length + Object.keys(this[CLOAK]).length - API_LENGTH;
 			}
 		});
-		this.getItem = function MemoryStorage_getItem(key) {
+		// Create API methods
+		result.getItem = function MemoryStorage_getItem(key) {
 			return key in API ? this[CLOAK][key] : this[key];
 		};
-		this.setItem = function MemoryStorage_setItem(key, val) {
+		result.setItem = function MemoryStorage_setItem(key, val) {
 			if (key in API) {this[CLOAK][key] = val;}
 			else {this[key] = val;}
 		};
-		this.removeItem = function MemoryStorage_removeItem(key) {
+		result.removeItem = function MemoryStorage_removeItem(key) {
 			if (key in API) {delete this[CLOAK][key];}
 			else {delete this[key];}
 		};
-		this.key = function MemoryStorage_key(idx) {
+		result.key = function MemoryStorage_key(idx) {
 			var keys = Object.keys(this).concat(Object.keys(this[CLOAK]));
 			keys = keys.filter(function(x){return !(x in API);});
 			return idx >= 0 &amp;&amp; idx &lt; keys.length ? keys[idx] : null;
 		};
-		this.clear = function MemoryStorage_clear() {
+		result.clear = function MemoryStorage_clear() {
 			var keys = Object.keys(this).filter(function(x){return !(x in API);});
 			for (var i=0,key; key=keys[i]; i++) {
 				if (! (key in API)) {delete this[key];}
