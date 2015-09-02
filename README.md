@@ -28,15 +28,34 @@ var memoryStorage = new MemoryStorage('my-app');
 
 ## Use it
 ```javascript
-memoryStorage.setItem('My string', 'Hello MemoryStorage!');
-memoryStorage.setItem('My object', JSON.stringify({my: 'object'}));
+memoryStorage.setItem('myString', 'Hello MemoryStorage!');
+memoryStorage.myObject = JSON.stringify({my: 'object'}));
 alert(memoryStorage.getItem('My string')); // alerts 'Hello MemoryStorage!'
+alert(memoryStorage['My string']); // alerts 'Hello MemoryStorage!'
 alert(memoryStorage.length); // alerts '2'
 alert(memoryStorage.key(1)); // alerts 'My object'
 memoryStorage.removeItem('My string');
 alert(memoryStorage.length); // alerts '1'
 memoryStorage.clear();
 alert(memoryStorage.length); // alerts '0'
+```
+
+## Beyond the Web Storage API
+MemoryStorage is type-agnosic; it doesn't care about the type of data you store. 
+If you want to remain within the Web Storage API, you should only read and write strings, 
+however if you want you can store other types just as well:
+```javascript
+memoryStorage.myObject = {my: 'object'};
+alert(memoryStorage.myObject.my); // alerts 'object'
+var tree = {
+	nested: {
+		objects: {
+			working: 'Sure!'
+		}
+	}
+}
+memoryStorage.setItem('tree', tree);
+alert(memoryStorage.tree.nested.objects.working); // alerts 'Sure!'
 ```
 
 

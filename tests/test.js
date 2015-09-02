@@ -56,7 +56,34 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 	assert.ok(store.getItem('test0')===undefined, "no values in cleared store");
 });
 
+QUnit.test("Multiple Instances Test", function( assert ) {
+	var store1 = new MemoryStorage('local');
+	var store2 = new MemoryStorage('local');
+	store1.clear();
+	store1.setItem('test0', 'data0');
+	assert.ok(store2.getItem('test0') === store1.getItem('test0'), "Item added to store1 is also visible in store2");
+	store1['test0'] = 'changed';
+	assert.ok((store2.getItem('test0') === store1.getItem('test0')) && store1.getItem('test0') === 'changed', "Item changed in store1 is also changed in store2");
+	store1['test1'] = 'data1';
+	assert.ok(store2.length === store1.length, "Store lengths remain consistent");
+	for (var i=0; i<store1.length; i++) {
+		assert.ok(store1.key(i) === store2.key(i), 'Order of keys is consistent across stores');
+		assert.ok(store1[store1.key(i)] === store2.getItem(store2.key(i)), 'Order and contents of values are consistent across stores');
+	}
+	store1.clear();
+	assert.ok(store2.length===0, "Clearing store1 also clears store2");
+});
 
 
+QUnit.test("Beyond W3C API Test", function( assert ) {
+	var store = new MemoryStorage('local');
+	store.clear();
+	store.my = {object: 'Yes!'};
+	assert.ok(typeof store.getItem('my') === 'object', 'Object returned with getItem when object was stored');
+	assert.ok(store.getItem('my').object === 'Yes!', 'Contents of objects survive storing/retrieving');
+	store.tree = {nested: {objects: {works: 'Sure!'}}};
+	assert.ok(store.tree.nested.objects.works === 'Sure!', 'Deep nested trees stored correctly');
+	store.clear();
+});
 
 
