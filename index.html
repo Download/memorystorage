@@ -47,7 +47,7 @@
 
       <section id="main_content">
         <h1>
-<a id="memorystorage-v096" class="anchor" href="#memorystorage-v096" aria-hidden="true"><span class="octicon octicon-link"></span></a>memorystorage <sub><sup>v0.9.6</sup></sub>
+<a id="memorystorage-v097" class="anchor" href="#memorystorage-v097" aria-hidden="true"><span class="octicon octicon-link"></span></a>memorystorage <sub><sup>v0.9.7</sup></sub>
 </h1>
 
 <p>Memory-backed storage that implements the <a href="http://www.w3.org/TR/webstorage/">Web Storage API</a>, making it a drop-in replacement for <code>localStorage</code> and <code>sessionStorage</code> in environments where these are not available. </p>
@@ -57,11 +57,11 @@
 
 <ul>
 <li>
-<a href="https://cdn.rawgit.com/download/memorystorage/0.9.6/src/memorystorage.js">memorystorage.js</a> (~3kB, commented)</li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.7/src/memorystorage.js">memorystorage.js</a> (~3kB, commented)</li>
 <li>
-<a href="https://cdn.rawgit.com/download/memorystorage/0.9.6/dist/memorystorage.min.js">memorystorage.min.js</a> (~2kB, minified)</li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js">memorystorage.min.js</a> (~2kB, minified)</li>
 <li>
-<a href="https://cdn.rawgit.com/download/memorystorage/0.9.6/dist/memorystorage.min.js.map">memorystorage.min.js.map</a> (~2kB, debug map file)</li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js.map">memorystorage.min.js.map</a> (~2kB, debug map file)</li>
 </ul>
 
 <h2>
@@ -72,7 +72,7 @@
 <h3>
 <a id="cdn" class="anchor" href="#cdn" aria-hidden="true"><span class="octicon octicon-link"></span></a>CDN</h3>
 
-<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdn.rawgit.com/download/memorystorage/0.9.6/dist/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 
 <h3>
 <a id="local-script-file" class="anchor" href="#local-script-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Local script file</h3>
@@ -84,31 +84,52 @@
 <h2>
 <a id="create-a-memory-storage-object" class="anchor" href="#create-a-memory-storage-object" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a memory storage object</h2>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> memoryStorage <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>my-app<span class="pl-pds">'</span></span>);</pre></div>
+<p>The <code>MemoryStorage</code> function creates (or returns) a storage object implementing the W3C Web Storage API.
+By default, scripts share a <code>global</code> storage object, so scripts can access and mutate each other's store
+object. To have MemoryStorage create a storage object that is isolated from other scripts, you pass in
+a unique ID which acts as a namespace:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> isolated <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>my-app<span class="pl-pds">'</span></span>); <span class="pl-c">// isolated from other scripts, recommended.</span></pre></div>
+
+<p>If you don't pass in an ID, or use the ID <code>'global'</code>, you get a globally shared storage object:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> <span class="pl-c1">global</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(); <span class="pl-c">// will default to a globally shared storage object.</span>
+<span class="pl-k">var</span> global2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>global<span class="pl-pds">'</span></span>); <span class="pl-c">// effectively same as above</span></pre></div>
+
+<p>For your convenience, the constructor permits <code>new</code>-less invocation:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> store <span class="pl-k">=</span> MemoryStorage(<span class="pl-s"><span class="pl-pds">'</span>my-store<span class="pl-pds">'</span></span>);
+<span class="pl-k">var</span> <span class="pl-c1">global</span> <span class="pl-k">=</span> MemoryStorage();</pre></div>
+
+<p>Instances of <code>MemoryStorage</code> expose an immutable <code>id</code> property that is set to
+the id the store was created with:</p>
+
+<div class="highlight highlight-javascript"><pre><span class="pl-c1">alert</span>(store.<span class="pl-c1">id</span>); <span class="pl-c">// alerts 'my-store'</span>
+<span class="pl-c1">alert</span>(<span class="pl-c1">global</span>.<span class="pl-c1">id</span>); <span class="pl-c">// alerts 'global'</span></pre></div>
 
 <h2>
 <a id="use-it" class="anchor" href="#use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use it</h2>
 
-<div class="highlight highlight-javascript"><pre>memoryStorage.setItem(<span class="pl-s"><span class="pl-pds">'</span>myString<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Hello MemoryStorage!<span class="pl-pds">'</span></span>);
-memoryStorage.myObject <span class="pl-k">=</span> <span class="pl-c1">JSON</span>.stringify({my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>}));
-<span class="pl-c1">alert</span>(memoryStorage.getItem(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>)); <span class="pl-c">// alerts 'Hello MemoryStorage!'</span>
-<span class="pl-c1">alert</span>(memoryStorage[<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>]); <span class="pl-c">// alerts 'Hello MemoryStorage!'</span>
-<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '2'</span>
-<span class="pl-c1">alert</span>(memoryStorage.key(<span class="pl-c1">1</span>)); <span class="pl-c">// alerts 'My object'</span>
-memoryStorage.removeItem(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>);
-<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '1'</span>
-memoryStorage.<span class="pl-c1">clear</span>();
-<span class="pl-c1">alert</span>(memoryStorage.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '0'</span></pre></div>
+<div class="highlight highlight-javascript"><pre>store.setItem(<span class="pl-s"><span class="pl-pds">'</span>myString<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Hello MemoryStorage!<span class="pl-pds">'</span></span>);
+store.myObject <span class="pl-k">=</span> <span class="pl-c1">JSON</span>.stringify({my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>}));
+<span class="pl-c1">alert</span>(store.getItem(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>)); <span class="pl-c">// alerts 'Hello MemoryStorage!'</span>
+<span class="pl-c1">alert</span>(store[<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>]); <span class="pl-c">// alerts 'Hello MemoryStorage!'</span>
+<span class="pl-c1">alert</span>(store.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '2'</span>
+<span class="pl-c1">alert</span>(store.key(<span class="pl-c1">1</span>)); <span class="pl-c">// alerts 'My object'</span>
+store.removeItem(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>);
+<span class="pl-c1">alert</span>(store.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '1'</span>
+store.<span class="pl-c1">clear</span>();
+<span class="pl-c1">alert</span>(store.<span class="pl-c1">length</span>); <span class="pl-c">// alerts '0'</span></pre></div>
 
 <h2>
 <a id="beyond-the-web-storage-api" class="anchor" href="#beyond-the-web-storage-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Beyond the Web Storage API</h2>
 
-<p>MemoryStorage is type-agnosic; it doesn't care about the type of data you store. 
+<p>MemoryStorage is type-agnostic; it doesn't care about the type of data you store. 
 If you want to remain within the Web Storage API, you should only read and write strings, 
 however if you want you can store other types just as well:</p>
 
-<div class="highlight highlight-javascript"><pre>memoryStorage.myObject <span class="pl-k">=</span> {my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>};
-<span class="pl-c1">alert</span>(memoryStorage.myObject.my); <span class="pl-c">// alerts 'object'</span>
+<div class="highlight highlight-javascript"><pre>store.myObject <span class="pl-k">=</span> {my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>};
+<span class="pl-c1">alert</span>(store.myObject.my); <span class="pl-c">// alerts 'object'</span>
 <span class="pl-k">var</span> tree <span class="pl-k">=</span> {
     nested<span class="pl-k">:</span> {
         objects<span class="pl-k">:</span> {
@@ -116,8 +137,18 @@ however if you want you can store other types just as well:</p>
         }
     }
 }
-memoryStorage.setItem(<span class="pl-s"><span class="pl-pds">'</span>tree<span class="pl-pds">'</span></span>, tree);
-<span class="pl-c1">alert</span>(memoryStorage.tree.nested.objects.working); <span class="pl-c">// alerts 'Sure!'</span></pre></div>
+store.setItem(<span class="pl-s"><span class="pl-pds">'</span>tree<span class="pl-pds">'</span></span>, tree);
+<span class="pl-c1">alert</span>(store.tree.nested.objects.working); <span class="pl-c">// alerts 'Sure!'</span></pre></div>
+
+<h2>
+<a id="copyright" class="anchor" href="#copyright" aria-hidden="true"><span class="octicon octicon-link"></span></a>Copyright</h2>
+
+<p>Copyright 2015 by Stijn de Witt. Some rights reserved.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>Licensed under the <a href="https://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International (CC-BY-4.0)</a> Open Source license.</p>
       </section>
 
       <footer>
