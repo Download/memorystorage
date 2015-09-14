@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>MemoryStorage Tests</title>
-  <script src="../dist/memorystorage.min.js"></script>
+  <title>MemoryStorage as AMD module</title>
   <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.14.0.css">
   <body>
-    <a href="index.html">Restart</a> | <a href="test-amd.html">Next Test</a>
-    <h1>MemoryStorage Tests</h1>
-    <a href="test.js">Test code</a>
+    <a href="index.html">Restart</a>
+    <h1>MemoryStorage as AMD module</h1>
+    <a href="test-amd.js">Test code</a>
     <script src="http://code.jquery.com/qunit/qunit-1.14.0.js"></script>
-    <script src="test.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.18/require.js" 
+			data-main="./test-amd.js" async></script>
     <div id="qunit"></div>
     <div id="qunit-fixture"></div>
   </body>

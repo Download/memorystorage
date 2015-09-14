@@ -1,24 +1,52 @@
-# memorystorage <sub><sup>v0.9.7</sup></sub>
+# memorystorage <sub><sup>v0.9.8</sup></sub>
 Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR/webstorage/), making it a drop-in replacement for `localStorage` and `sessionStorage` in environments where these are not available. 
 [Project website](http://download.github.io/memorystorage)
 
 ## Download
-* [memorystorage.js](https://cdn.rawgit.com/download/memorystorage/0.9.7/src/memorystorage.js) (~3kB, commented)
-* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js) (~2kB, minified)
-* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js.map) (~2kB, debug map file)
+* [memorystorage.umd.js](https://cdn.rawgit.com/download/memorystorage/0.9.8/src/memorystorage.umd.js) (~4kB, commented)
+* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.9.8/dist/memorystorage.min.js) (~2kB, minified)
+* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.9.8/dist/memorystorage.min.js.map) (~2kB, debug map file)
 
 ## Include on your page
-`memorystorage` can be used directly from CDN, or from a local script file.
+`memorystorage` can be used directly from CDN, from a local script file, or from a module loader.
 
 ### CDN
+This is by far the easiest method and gives good performance to boost. Use this if you are in doubt.
 ```xml
-<script src="https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js"></script>
+<script src="https://cdn.rawgit.com/download/memorystorage/0.9.8/dist/memorystorage.min.js"></script>
 ```
 
 ### Local script file
 Download memorystorage.min.js, place it in a folder `lib` in the root of your website and include it like this:
 ```xml
 <script src="lib/memorystorage.min.js"></script>
+```
+
+### Module loaders
+Memorystorage implements the Universal Module Pattern and as such, is available to be consumed
+from Node modules as well as via an AMD loader such as RequireJS. 
+
+#### Node 
+```javascript
+var MemoryStorage = require('memorystorage');
+// here, the MemoryStorage function is available
+var myStorage = new MemoryStorage('my-app');
+```
+
+#### AMD
+```javascript
+define(['memorystorage'], function(MemoryStorage){
+	// here, the MemoryStorage function is available
+	var myStorage = new MemoryStorage('my-app');
+});
+```
+To be able to load MemoryStorage from CDN as an AMD module, configure the CDN url like so <small>(note the absence of `.js` in the url)</small>:
+```javascript
+require.config({
+	paths: {
+		'memorystorage': 'https://cdn.rawgit.com/download/memorystorage/0.9.8/dist/memorystorage.min'
+	}
+});
 ```
 
 ## Create a memory storage object

@@ -10,6 +10,17 @@ module.exports = function(grunt) {
 			},
 			all: [ '<%= pkg.main %>' ]
 		},
+		umd: {
+			all: {
+				options: {
+					src: '<%= pkg.main %>',
+					dest: '<%= pkg.dist.umd %>', 
+					template: 'umd-lite.hbs', 
+					objectToExport: '<%= pkg.exports[0] %>',
+					amdModuleId: '<%= pkg.name %>'
+				}
+			}
+		},
 		uglify: {
 			options:{
 				banner : '/*! [<%= pkg.name %> <%= pkg.version %>](<%= pkg.homepage %>) <%= pkg.copyright %> License: [<%= pkg.license %>](<%= pkg.licenseUrl %>) */',
@@ -20,7 +31,7 @@ module.exports = function(grunt) {
 			},
 			admin: {
 				files: {
-					'<%= pkg.dist.min %>': ['<%= pkg.main %>']
+					'<%= pkg.dist.min %>': ['<%= pkg.dist.umd %>']
 				}
 			}
 		},
@@ -38,6 +49,7 @@ module.exports = function(grunt) {
 	
 	grunt.registerTask('default', [
 		'jshint', 
+		'umd', 
 		'uglify', 
 		'jsdoc', 
 	]);

@@ -1,0 +1,10 @@
+(function (u, m, d) {
+	if (typeof define === 'function' && define.amd) {define({{#if amdModuleId}}'{{amdModuleId}}', {{/if}}[{{{amdDependencies.wrapped}}}], function({{{amdDependencies.params}}}){return (d({{{amdDependencies.params}}}));});}
+	else if (typeof exports === 'object') {module.exports = d({{{cjsDependencies.wrapped}}});}
+	else {u[m] = d({{{globalDependencies.normal}}});}
+}(this, '{{{objectToExport}}}', function({{dependencies}}) {'use strict';
+
+{{{code}}}
+
+return {{{objectToExport}}};
+}));

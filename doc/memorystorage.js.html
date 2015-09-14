@@ -65,103 +65,92 @@
  * @copyright Copyright 2015 by Stijn de Witt. Some rights reserved. 
  * @license Licensed under [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
  */
-(function (u,m,d) {
-    if (typeof define === 'function' &amp;&amp; define.amd) {define(d);} 
-    else if (typeof exports === 'object') {module.exports = d();} 
-    else {u[m] = d();}
-}(this, 'MemoryStorage', function(){
-	'use strict';
+// API methods and properties will be cloaked
+var API = {'clear':1, 'getItem':1, 'id':1, 'key':1, 'length':1, 'removeItem':1, 'setItem':1},
+	API_LENGTH = Object.keys(API).length,
+	CLOAK = '__memorystorage_cloaked_items__';
 
-	// API methods and properties will be cloaked
-	var API = {'clear':1, 'getItem':1, 'id':1, 'key':1, 'length':1, 'removeItem':1, 'setItem':1},
-		API_LENGTH = Object.keys(API).length,
-		CLOAK = '__memorystorage_cloaked_items__';
+// Used to store all memorystorage objects
+var storage = {};
 
-	// Used to store all memorystorage objects
-	var storage = {};
+/** @module memorystorage */
 
-	/** @module memorystorage */
+/**
+ * Creates a new MemoryStorage object implementing the &lt;a href="http://www.w3.org/TR/webstorage/">Web Storage API&lt;/a> using memory.
+ * 
+ * &lt;p>If no arguments are given, the created memory storage object will read from and write to the
+ * &lt;code>global&lt;/code> memory storage. If a string argument is given, the new storage object
+ * will read from and write to it's own segment of memory. Any data written to such a memory
+ * storage object will only show up in other memory storage objects that have been created with
+ * the same id. This data will not show up in the &lt;code>global&lt;/code> memory space. As such it 
+ * is recommended to always construct a memory storage object with a unique string id as argument.&lt;/p> 
+ * 
+ * @param id Optional string argument used to isolate this memory storage object from others.
+ *
+ * @alias module:memorystorage.MemoryStorage
+ * @class 
+ */
+function MemoryStorage(id) {// jshint ignore:line
+	// make sure id is assigned
+	id = id || 'global';
+	// try to get existing store
+	var result = storage[id]; 
+	// return it if found
+	if (result) {return result;}
 	
-	/**
-	 * Creates a new MemoryStorage object implementing the &lt;a href="http://www.w3.org/TR/webstorage/">Web Storage API&lt;/a> using memory.
-	 * 
-	 * &lt;p>If no arguments are given, the created memory storage object will read from and write to the
-	 * &lt;code>global&lt;/code> memory storage. If a string argument is given, the new storage object
-	 * will read from and write to it's own segment of memory. Any data written to such a memory
-	 * storage object will only show up in other memory storage objects that have been created with
-	 * the same id. This data will not show up in the &lt;code>global&lt;/code> memory space. As such it 
-	 * is recommended to always construct a memory storage object with a unique string id as argument.&lt;/p> 
-	 * 
-	 * @param id Optional string argument used to isolate this memory storage object from others.
-	 *
-	 * @alias module:memorystorage.MemoryStorage
-	 * @class 
-	 */
-	function MemoryStorage(id) {
-		// make sure id is assigned
-		id = id || 'global';
-		// try to get existing store
-		var result = storage[id]; 
-		// return it if found
-		if (result) {return result;}
-		
-		// make sure there is no harm in leaving out new in invocations to MemoryStorage
-		if (! (this instanceof MemoryStorage)) {return new MemoryStorage(id);}
-		
-		// create a new store and save a ref to it so we can get it back later
-		result = storage[id] = this;
-		// create a space to store 'cloaked' key/values: items that have a key
-		// that collides with Web Storage API method names.
-		var cloaked = {};
-		Object.defineProperty(result, CLOAK, {
-			enumerable: false,
-			get: function(){return cloaked;}
-		});
-		// Allow client code to read the id
-		Object.defineProperty(result, 'id', {
-			enumerable: true,
-			get: function(){return id;}
-		});
-		// Create the length property
-		Object.defineProperty(result, 'length', {
-			enumerable: true,
-			get: function(){
-				return Object.keys(this).length + Object.keys(this[CLOAK]).length - API_LENGTH;
-			}
-		});
-		// Create API methods
-		result.getItem = function MemoryStorage_getItem(key) {
-			return key in API ? this[CLOAK][key] : this[key];
-		};
-		result.setItem = function MemoryStorage_setItem(key, val) {
-			if (key in API) {this[CLOAK][key] = val;}
-			else {this[key] = val;}
-		};
-		result.removeItem = function MemoryStorage_removeItem(key) {
-			if (key in API) {delete this[CLOAK][key];}
-			else {delete this[key];}
-		};
-		result.key = function MemoryStorage_key(idx) {
-			var keys = Object.keys(this).concat(Object.keys(this[CLOAK]));
-			keys = keys.filter(function(x){return !(x in API);});
-			return idx >= 0 &amp;&amp; idx &lt; keys.length ? keys[idx] : null;
-		};
-		result.clear = function MemoryStorage_clear() {
-			var keys = Object.keys(this).filter(function(x){return !(x in API);});
-			for (var i=0,key; key=keys[i]; i++) {
-				if (! (key in API)) {delete this[key];}
-			}
-			keys = Object.keys(this[CLOAK]);
-			for (var i=0,key; key=keys[i]; i++) {
-				delete this[CLOAK][key];
-			}
-		};
-		return result;
-	}
+	// make sure there is no harm in leaving out new in invocations to MemoryStorage
+	if (! (this instanceof MemoryStorage)) {return new MemoryStorage(id);}
 	
-	// EXPOSE
-	return MemoryStorage;
-}));
+	// create a new store and save a ref to it so we can get it back later
+	result = storage[id] = this;
+	// create a space to store 'cloaked' key/values: items that have a key
+	// that collides with Web Storage API method names.
+	var cloaked = {};
+	Object.defineProperty(result, CLOAK, {
+		enumerable: false,
+		get: function(){return cloaked;}
+	});
+	// Allow client code to read the id
+	Object.defineProperty(result, 'id', {
+		enumerable: true,
+		get: function(){return id;}
+	});
+	// Create the length property
+	Object.defineProperty(result, 'length', {
+		enumerable: true,
+		get: function(){
+			return Object.keys(this).length + Object.keys(this[CLOAK]).length - API_LENGTH;
+		}
+	});
+	// Create API methods
+	result.getItem = function MemoryStorage_getItem(key) {
+		return key in API ? this[CLOAK][key] : this[key];
+	};
+	result.setItem = function MemoryStorage_setItem(key, val) {
+		if (key in API) {this[CLOAK][key] = val;}
+		else {this[key] = val;}
+	};
+	result.removeItem = function MemoryStorage_removeItem(key) {
+		if (key in API) {delete this[CLOAK][key];}
+		else {delete this[key];}
+	};
+	result.key = function MemoryStorage_key(idx) {
+		var keys = Object.keys(this).concat(Object.keys(this[CLOAK]));
+		keys = keys.filter(function(x){return !(x in API);});
+		return idx >= 0 &amp;&amp; idx &lt; keys.length ? keys[idx] : null;
+	};
+	result.clear = function MemoryStorage_clear() {
+		var keys = Object.keys(this).filter(function(x){return !(x in API);});
+		for (var i=0,key; key=keys[i]; i++) {
+			if (! (key in API)) {delete this[key];}
+		}
+		keys = Object.keys(this[CLOAK]);
+		for (var i=0,key; key=keys[i]; i++) {
+			delete this[CLOAK][key];
+		}
+	};
+	return result;
+}
 </pre>
 	</article>
 </section>
@@ -191,7 +180,7 @@
 
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a>
-	on Wed Sep 2nd 2015 using the <a
+	on Mon Sep 14th 2015 using the <a
 	href="https://github.com/terryweiss/docstrap">DocStrap template</a>.
 </span>
 </footer>
