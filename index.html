@@ -47,7 +47,7 @@
 
       <section id="main_content">
         <h1>
-<a id="memorystorage-v097" class="anchor" href="#memorystorage-v097" aria-hidden="true"><span class="octicon octicon-link"></span></a>memorystorage <sub><sup>v0.9.7</sup></sub>
+<a id="memorystorage-v099" class="anchor" href="#memorystorage-v099" aria-hidden="true"><span class="octicon octicon-link"></span></a>memorystorage <sub><sup>v0.9.9</sup></sub>
 </h1>
 
 <p>Memory-backed storage that implements the <a href="http://www.w3.org/TR/webstorage/">Web Storage API</a>, making it a drop-in replacement for <code>localStorage</code> and <code>sessionStorage</code> in environments where these are not available. </p>
@@ -57,29 +57,60 @@
 
 <ul>
 <li>
-<a href="https://cdn.rawgit.com/download/memorystorage/0.9.7/src/memorystorage.js">memorystorage.js</a> (~3kB, commented)</li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.9/src/memorystorage.umd.js">memorystorage.umd.js</a> (~4kB, commented)</li>
 <li>
-<a href="https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js">memorystorage.min.js</a> (~2kB, minified)</li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min.js">memorystorage.min.js</a> (~2kB, minified)</li>
 <li>
-<a href="https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js.map">memorystorage.min.js.map</a> (~2kB, debug map file)</li>
+<a href="https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min.js.map">memorystorage.min.js.map</a> (~2kB, debug map file)</li>
 </ul>
 
 <h2>
 <a id="include-on-your-page" class="anchor" href="#include-on-your-page" aria-hidden="true"><span class="octicon octicon-link"></span></a>Include on your page</h2>
 
-<p><code>memorystorage</code> can be used directly from CDN, or from a local script file.</p>
+<p><code>memorystorage</code> can be used directly from CDN, from a local script file, or from a module loader.</p>
 
 <h3>
 <a id="cdn" class="anchor" href="#cdn" aria-hidden="true"><span class="octicon octicon-link"></span></a>CDN</h3>
 
-<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdn.rawgit.com/download/memorystorage/0.9.7/dist/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<p>This is by far the easiest method and gives good performance to boost. Use this if you are in doubt.</p>
+
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
 
 <h3>
 <a id="local-script-file" class="anchor" href="#local-script-file" aria-hidden="true"><span class="octicon octicon-link"></span></a>Local script file</h3>
 
 <p>Download memorystorage.min.js, place it in a folder <code>lib</code> in the root of your website and include it like this:</p>
 
-<div class="highlight highlight-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>lib/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+<div class="highlight highlight-text-xml"><pre>&lt;<span class="pl-ent">script</span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">"</span>lib/memorystorage.min.js<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+
+<h3>
+<a id="module-loaders" class="anchor" href="#module-loaders" aria-hidden="true"><span class="octicon octicon-link"></span></a>Module loaders</h3>
+
+<p>Memorystorage implements the Universal Module Pattern and as such, is available to be consumed
+from Node modules as well as via an AMD loader such as RequireJS. </p>
+
+<h4>
+<a id="node" class="anchor" href="#node" aria-hidden="true"><span class="octicon octicon-link"></span></a>Node</h4>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> MemoryStorage <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>memorystorage<span class="pl-pds">'</span></span>);
+<span class="pl-c">// here, the MemoryStorage function is available</span>
+<span class="pl-k">var</span> myStorage <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>my-app<span class="pl-pds">'</span></span>);</pre></div>
+
+<h4>
+<a id="amd" class="anchor" href="#amd" aria-hidden="true"><span class="octicon octicon-link"></span></a>AMD</h4>
+
+<div class="highlight highlight-source-js"><pre>define([<span class="pl-s"><span class="pl-pds">'</span>memorystorage<span class="pl-pds">'</span></span>], <span class="pl-k">function</span>(<span class="pl-smi">MemoryStorage</span>){
+    <span class="pl-c">// here, the MemoryStorage function is available</span>
+    <span class="pl-k">var</span> myStorage <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>my-app<span class="pl-pds">'</span></span>);
+});</pre></div>
+
+<p>To be able to load MemoryStorage from CDN as an AMD module, configure the CDN url like so (note the absence of <code>.js</code> in the url):</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">require</span>.config({
+    paths<span class="pl-k">:</span> {
+        <span class="pl-s"><span class="pl-pds">'</span>memorystorage<span class="pl-pds">'</span></span><span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min<span class="pl-pds">'</span></span>
+    }
+});</pre></div>
 
 <h2>
 <a id="create-a-memory-storage-object" class="anchor" href="#create-a-memory-storage-object" aria-hidden="true"><span class="octicon octicon-link"></span></a>Create a memory storage object</h2>
@@ -89,28 +120,28 @@ By default, scripts share a <code>global</code> storage object, so scripts can a
 object. To have MemoryStorage create a storage object that is isolated from other scripts, you pass in
 a unique ID which acts as a namespace:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> isolated <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>my-app<span class="pl-pds">'</span></span>); <span class="pl-c">// isolated from other scripts, recommended.</span></pre></div>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> isolated <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>my-app<span class="pl-pds">'</span></span>); <span class="pl-c">// isolated from other scripts, recommended.</span></pre></div>
 
 <p>If you don't pass in an ID, or use the ID <code>'global'</code>, you get a globally shared storage object:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> <span class="pl-c1">global</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(); <span class="pl-c">// will default to a globally shared storage object.</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> <span class="pl-c1">global</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(); <span class="pl-c">// will default to a globally shared storage object.</span>
 <span class="pl-k">var</span> global2 <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-en">MemoryStorage</span>(<span class="pl-s"><span class="pl-pds">'</span>global<span class="pl-pds">'</span></span>); <span class="pl-c">// effectively same as above</span></pre></div>
 
 <p>For your convenience, the constructor permits <code>new</code>-less invocation:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-k">var</span> store <span class="pl-k">=</span> MemoryStorage(<span class="pl-s"><span class="pl-pds">'</span>my-store<span class="pl-pds">'</span></span>);
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> store <span class="pl-k">=</span> MemoryStorage(<span class="pl-s"><span class="pl-pds">'</span>my-store<span class="pl-pds">'</span></span>);
 <span class="pl-k">var</span> <span class="pl-c1">global</span> <span class="pl-k">=</span> MemoryStorage();</pre></div>
 
 <p>Instances of <code>MemoryStorage</code> expose an immutable <code>id</code> property that is set to
 the id the store was created with:</p>
 
-<div class="highlight highlight-javascript"><pre><span class="pl-c1">alert</span>(store.<span class="pl-c1">id</span>); <span class="pl-c">// alerts 'my-store'</span>
+<div class="highlight highlight-source-js"><pre><span class="pl-c1">alert</span>(store.<span class="pl-c1">id</span>); <span class="pl-c">// alerts 'my-store'</span>
 <span class="pl-c1">alert</span>(<span class="pl-c1">global</span>.<span class="pl-c1">id</span>); <span class="pl-c">// alerts 'global'</span></pre></div>
 
 <h2>
 <a id="use-it" class="anchor" href="#use-it" aria-hidden="true"><span class="octicon octicon-link"></span></a>Use it</h2>
 
-<div class="highlight highlight-javascript"><pre>store.setItem(<span class="pl-s"><span class="pl-pds">'</span>myString<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Hello MemoryStorage!<span class="pl-pds">'</span></span>);
+<div class="highlight highlight-source-js"><pre>store.setItem(<span class="pl-s"><span class="pl-pds">'</span>myString<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>Hello MemoryStorage!<span class="pl-pds">'</span></span>);
 store.myObject <span class="pl-k">=</span> <span class="pl-c1">JSON</span>.stringify({my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>}));
 <span class="pl-c1">alert</span>(store.getItem(<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>)); <span class="pl-c">// alerts 'Hello MemoryStorage!'</span>
 <span class="pl-c1">alert</span>(store[<span class="pl-s"><span class="pl-pds">'</span>My string<span class="pl-pds">'</span></span>]); <span class="pl-c">// alerts 'Hello MemoryStorage!'</span>
@@ -128,7 +159,7 @@ store.<span class="pl-c1">clear</span>();
 If you want to remain within the Web Storage API, you should only read and write strings, 
 however if you want you can store other types just as well:</p>
 
-<div class="highlight highlight-javascript"><pre>store.myObject <span class="pl-k">=</span> {my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>};
+<div class="highlight highlight-source-js"><pre>store.myObject <span class="pl-k">=</span> {my<span class="pl-k">:</span> <span class="pl-s"><span class="pl-pds">'</span>object<span class="pl-pds">'</span></span>};
 <span class="pl-c1">alert</span>(store.myObject.my); <span class="pl-c">// alerts 'object'</span>
 <span class="pl-k">var</span> tree <span class="pl-k">=</span> {
     nested<span class="pl-k">:</span> {
