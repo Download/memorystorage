@@ -4,12 +4,6 @@
 	else {u[m] = d();}
 }(this, 'MemoryStorage', function() {'use strict';
 
-(function (u, m, d) {
-	if (typeof define === 'function' && define.amd) {define('memorystorage', [], function(){return (d());});}
-	else if (typeof exports === 'object') {module.exports = d();}
-	else {u[m] = d();}
-}(this, 'MemoryStorage', function() {'use strict';
-
 /*! 
  * memorystorage.js - A memory-backed implementation of the Web Storage API.
  *
@@ -102,10 +96,6 @@ function MemoryStorage(id) {// jshint ignore:line
 	};
 	return result;
 }
-
-
-return MemoryStorage;
-}));
 
 
 return MemoryStorage;

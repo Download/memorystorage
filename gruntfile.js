@@ -8,12 +8,12 @@ module.exports = function(grunt) {
 			options : {
 				jshintrc : '.jshintrc'
 			},
-			all: [ '<%= pkg.main %>' ]
+			all: [ '<%= pkg.src %>' ]
 		},
 		umd: {
 			all: {
 				options: {
-					src: '<%= pkg.main %>',
+					src: '<%= pkg.src %>',
 					dest: '<%= pkg.dist.umd %>', 
 					template: 'umd-lite.hbs', 
 					objectToExport: '<%= pkg.exports[0] %>',

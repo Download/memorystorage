@@ -1,11 +1,11 @@
-# memorystorage <sub><sup>v0.9.9</sup></sub>
+# memorystorage <sub><sup>v0.9.10</sup></sub>
 Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR/webstorage/), making it a drop-in replacement for `localStorage` and `sessionStorage` in environments where these are not available. 
 [Project website](http://download.github.io/memorystorage)
 
 ## Download
-* [memorystorage.umd.js](https://cdn.rawgit.com/download/memorystorage/0.9.9/src/memorystorage.umd.js) (~4kB, commented)
-* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min.js) (~2kB, minified)
-* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min.js.map) (~2kB, debug map file)
+* [memorystorage.umd.js](https://cdn.rawgit.com/download/memorystorage/0.9.10/dist/memorystorage.umd.js) (~4kB, commented)
+* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.9.10/dist/memorystorage.min.js) (~2kB, minified)
+* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.9.10/dist/memorystorage.min.js.map) (~2kB, debug map file)
 
 ## Include on your page
 `memorystorage` can be used directly from CDN, from a local script file, or from a module loader.
@@ -13,7 +13,7 @@ Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR
 ### CDN
 This is by far the easiest method and gives good performance to boost. Use this if you are in doubt.
 ```xml
-<script src="https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min.js"></script>
+<script src="https://cdn.rawgit.com/download/memorystorage/0.9.10/dist/memorystorage.min.js"></script>
 ```
 
 ### Local script file
@@ -44,7 +44,7 @@ To be able to load MemoryStorage from CDN as an AMD module, configure the CDN ur
 ```javascript
 require.config({
 	paths: {
-		'memorystorage': 'https://cdn.rawgit.com/download/memorystorage/0.9.9/dist/memorystorage.min'
+		'memorystorage': 'https://cdn.rawgit.com/download/memorystorage/0.9.10/dist/memorystorage.min'
 	}
 });
 ```
