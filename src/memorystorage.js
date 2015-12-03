@@ -6,7 +6,6 @@
  */
 // API methods and properties will be cloaked
 var API = {'clear':1, 'getItem':1, 'id':1, 'key':1, 'length':1, 'removeItem':1, 'setItem':1},
-	API_LENGTH = Object.keys(API).length,
 	CLOAK = '__memorystorage_cloaked_items__';
 
 // Used to store all memorystorage objects
@@ -47,18 +46,30 @@ function MemoryStorage(id) {// jshint ignore:line
 	var cloaked = {};
 	Object.defineProperty(result, CLOAK, {
 		enumerable: false,
+		configurable: true,
 		get: function(){return cloaked;}
 	});
+	/**
+	 * private method to find all enumerable keys
+	 * @returns {Array.<String>}
+	 */
+	function enumerableKeys(){
+		var keys = Object.keys(result).filter(function(x){return !(x in API);});
+		return keys.concat(Object.keys(cloaked));
+	}
+
 	// Allow client code to read the id
 	Object.defineProperty(result, 'id', {
 		enumerable: true,
+		configurable: true,
 		get: function(){return id;}
 	});
 	// Create the length property
 	Object.defineProperty(result, 'length', {
 		enumerable: true,
+		configurable: true,
 		get: function(){
-			return Object.keys(this).length + Object.keys(this[CLOAK]).length - API_LENGTH;
+			return enumerableKeys().length;
 		}
 	});
 	// Create API methods
@@ -73,9 +84,13 @@ function MemoryStorage(id) {// jshint ignore:line
 		if (key in API) {delete this[CLOAK][key];}
 		else {delete this[key];}
 	};
+	/**
+	 * Needed to enumerate over all items in the collection
+	 * @param {Number} idx - the index
+	 * @returns {null|string} - the name of the nth key in the storage
+	 */
 	result.key = function MemoryStorage_key(idx) {
-		var keys = Object.keys(this).filter(function(x){return !(x in API);});
-		keys = keys.concat(Object.keys(this[CLOAK]));
+		var keys = enumerableKeys();
 		return idx >= 0 && idx < keys.length ? keys[idx] : null;
 	};
 	result.clear = function MemoryStorage_clear() {
@@ -88,5 +103,15 @@ function MemoryStorage(id) {// jshint ignore:line
 			delete this[CLOAK][key];
 		}
 	};
-	return result;
+
+	if (typeof Proxy === 'undefined')
+	{
+		return result;
+	}
+	// ES6 Proxy to support Object.keys() on a MemoryStorage object
+	return new Proxy(result, {
+		ownKeys: function() {
+			return enumerableKeys();
+		}
+	});
 }

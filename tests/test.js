@@ -15,7 +15,14 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 	assert.ok(store.length===2, 'value added correctly with index operators');
 	store.setItem('test2', 'data2');
 	assert.ok(store.length===3, 'three items added to store');
-	assert.ok(Object.keys(store).length == (7+3), "store has 10 enumerable properties (id, 6 api methods + 3 stored items)");
+	if (typeof Proxy === "undefined") {
+		assert.ok(Object.keys(store).length == (7+3), "store has 10 enumerable properties (id, 6 api methods + 3 stored items)");
+	}
+	else {
+		assert.ok(Object.keys(store).length === 3, "store has 3 enumerable properties (no api methods + 3 stored items)");
+		assert.ok(Object.keys(store).sort().join(',') === "test0,test1,test2",
+				"keys are enumerable with Object.keys()");
+	}
 	assert.ok(store.getItem('test1')==='data1' && store.getItem('test2')==='data2', "retrieved values matches stored values");
 	var keyOrderBefore = '';
 	for (var i=0; i<store.length; i++) {
@@ -40,6 +47,11 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 	assert.ok(store.getItem('getItem') === 'test', "getItem successfully retrieves item with API name.");
 	assert.ok(store.length===1, 'items with store API key names should be counted in the length property');
 	assert.ok(store.key(0)==='getItem', 'items with store API key names should be enumerable with key()');
+	if (typeof Proxy !== "undefined") {
+		assert.ok(Object.keys(store).length === 1, "store API key names are counted in the key enumeration");
+		assert.ok(Object.keys(store).join('') === "getItem",
+				"store API key names are included in the key enumeration");
+	}
 	store.removeItem('getItem');
 	assert.ok(store.getItem('getItem') === undefined, "After removal of item with API name, getItem returns undefined.");
 	
