@@ -34,9 +34,12 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 	assert.ok(store.length===2, "double removal has no effect");
 	assert.ok(store.getItem('test1')===undefined, "get removed item returns undefined");
 
+	store.clear();
 	store.setItem('getItem', 'test');
 	assert.ok(typeof store.getItem === 'function', "store API methods cannot be overwritten.");
 	assert.ok(store.getItem('getItem') === 'test', "getItem successfully retrieves item with API name.");
+	assert.ok(store.length===1, 'items with store API key names should be counted in the length property');
+	assert.ok(store.key(0)==='getItem', 'items with store API key names should be enumerable with key()');
 	store.removeItem('getItem');
 	assert.ok(store.getItem('getItem') === undefined, "After removal of item with API name, getItem returns undefined.");
 	
@@ -50,7 +53,6 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 	assert.ok(glob.key(0)===null, "global keys are removed correctly");
 	assert.ok(glob.getItem('glob0')===undefined, "global values are removed correctly");
 
-	store.clear();
 	assert.ok(store.length===0, "store is cleared");
 	assert.ok(store.key(0)===null, "no keys in cleared store");
 	assert.ok(store.getItem('test0')===undefined, "no values in cleared store");

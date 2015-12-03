@@ -74,8 +74,8 @@ function MemoryStorage(id) {// jshint ignore:line
 		else {delete this[key];}
 	};
 	result.key = function MemoryStorage_key(idx) {
-		var keys = Object.keys(this).concat(Object.keys(this[CLOAK]));
-		keys = keys.filter(function(x){return !(x in API);});
+		var keys = Object.keys(this).filter(function(x){return !(x in API);});
+		keys = keys.concat(Object.keys(this[CLOAK]));
 		return idx >= 0 && idx < keys.length ? keys[idx] : null;
 	};
 	result.clear = function MemoryStorage_clear() {
