@@ -1,6 +1,6 @@
 {
   "name": "memorystorage",
-  "version": "0.9.12",
+  "version": "0.10.0",
   "description": "Memory-backed implementation of the Web Storage API",
   "src": "src/memorystorage.js",
   "main": "dist/memorystorage.umd.js",
@@ -31,7 +31,12 @@
     "email": "StijnDeWitt@hotmail.com",
     "url": "http://StijnDeWitt.com"
   },
-  "contributors": [],
+  "contributors": [
+    {
+      "name": "Matthias Seemann",
+      "url": "https://github.com/semmel"
+    }
+  ],
   "copyright": "Copyright 2015 by [Stijn de Witt](http://StijnDeWitt.com). Some rights reserved.",
   "license": "CC-BY-4.0",
   "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
