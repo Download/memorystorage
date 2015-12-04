@@ -16,6 +16,7 @@
 	"browser": true,
 	"shadow": true,
 	"devel": true,
+	"esnext": true,
 	
 	"globals": {
 		"define": false,
