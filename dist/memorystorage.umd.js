@@ -80,7 +80,7 @@ function MemoryStorage(id) {// jshint ignore:line
 	});
 	// Create API methods
 	result.getItem = function MemoryStorage_getItem(key) {
-		return key in API ? this[CLOAK][key] : this[key];
+		return (key in API ? this[CLOAK][key] : this[key]) || null;
 	};
 	result.setItem = function MemoryStorage_setItem(key, val) {
 		if (key in API) {this[CLOAK][key] = val;}

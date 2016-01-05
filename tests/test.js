@@ -39,7 +39,7 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 	assert.ok(store.length===2, "item removed correctly with removeItem");
 	store.removeItem('test1');
 	assert.ok(store.length===2, "double removal has no effect");
-	assert.ok(store.getItem('test1')===undefined, "get removed item returns undefined");
+	assert.ok(store.getItem('test1')===null, "get removed item returns null");
 
 	store.clear();
 	store.setItem('getItem', 'test');
@@ -53,21 +53,21 @@ QUnit.test("W3C Web Storage API Compliance Test", function( assert ) {
 				"store API key names are included in the key enumeration");
 	}
 	store.removeItem('getItem');
-	assert.ok(store.getItem('getItem') === undefined, "After removal of item with API name, getItem returns undefined.");
+	assert.ok(store.getItem('getItem') === null, "After removal of item with API name, getItem returns null.");
 	
 	var glob = new MemoryStorage();
 	assert.ok(glob.length===0, "local store items are not visible globally");
 	glob.setItem('glob0', 'data0');
 	assert.ok(glob.length===1 && glob.getItem('glob0')==='data0', "globally stored items are retrieved ok");
-	assert.ok(store.getItem('glob0')===undefined, "global items are not visible in the local store");
+	assert.ok(store.getItem('glob0')===null, "global items are not visible in the local store");
 	glob.removeItem('glob0');
 	assert.ok(glob.length===0, "global length is updated correctly");
 	assert.ok(glob.key(0)===null, "global keys are removed correctly");
-	assert.ok(glob.getItem('glob0')===undefined, "global values are removed correctly");
+	assert.ok(glob.getItem('glob0')===null, "global values are removed correctly");
 
 	assert.ok(store.length===0, "store is cleared");
 	assert.ok(store.key(0)===null, "no keys in cleared store");
-	assert.ok(store.getItem('test0')===undefined, "no values in cleared store");
+	assert.ok(store.getItem('test0')===null, "no values in cleared store");
 });
 
 QUnit.test("Multiple Instances Test", function( assert ) {
