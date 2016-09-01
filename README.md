@@ -1,19 +1,21 @@
-# memorystorage <sub><sup>v0.10.0</sup></sub>
-Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR/webstorage/), making it a drop-in replacement for `localStorage` and `sessionStorage` in environments where these are not available. 
+# memorystorage <sub><sup>v0.11.0</sup></sub>
+Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR/webstorage/), making it a drop-in replacement for `localStorage` and `sessionStorage` in environments where these are not available.
 [Project website](http://download.github.io/memorystorage)
 
-## Download
-* [memorystorage.umd.js](https://cdn.rawgit.com/download/memorystorage/0.10.0/dist/memorystorage.umd.js) (~4kB, commented)
-* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.10.0/dist/memorystorage.min.js) (~2kB, minified)
-* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.10.0/dist/memorystorage.min.js.map) (~2kB, debug map file)
+## Installation
+**For Node**
+```sh
+npm install --save memorystorage
+```
 
+**For browsers**
 ## Include on your page
 `memorystorage` can be used directly from CDN, from a local script file, or from a module loader.
 
 ### CDN
 This is by far the easiest method and gives good performance to boost. Use this if you are in doubt.
 ```xml
-<script src="https://cdn.rawgit.com/download/memorystorage/0.10.0/dist/memorystorage.min.js"></script>
+<script src="https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min.js"></script>
 ```
 
 ### Local script file
@@ -22,11 +24,16 @@ Download memorystorage.min.js, place it in a folder `lib` in the root of your we
 <script src="lib/memorystorage.min.js"></script>
 ```
 
+#### Download
+* [memorystorage.umd.js](https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.umd.js) (~4kB, commented)
+* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min.js) (~2kB, minified)
+* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min.js.map) (~2kB, debug map file)
+
 ### Module loaders
 Memorystorage implements the Universal Module Pattern and as such, is available to be consumed
-from Node modules as well as via an AMD loader such as RequireJS. 
+from Node modules as well as via an AMD loader such as RequireJS.
 
-#### Node 
+#### Node
 ```javascript
 var MemoryStorage = require('memorystorage');
 // here, the MemoryStorage function is available
@@ -44,9 +51,16 @@ To be able to load MemoryStorage from CDN as an AMD module, configure the CDN ur
 ```javascript
 require.config({
 	paths: {
-		'memorystorage': 'https://cdn.rawgit.com/download/memorystorage/0.10.0/dist/memorystorage.min'
+		'memorystorage': 'https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min'
 	}
 });
+```
+
+#### ES2015
+```js
+import MemoryStorage from 'memorystorage'
+// here, the MemoryStorage function is available
+const myStorage = new MemoryStorage('my-app');
 ```
 
 ## Create a memory storage object
@@ -98,11 +112,11 @@ alert(store.length); // alerts '0'
 The Web Storage API is pretty small. For discovering which key-value pairs are available within
 the storage object, you basically only have the `length` property and the `key(idx)` function.
 The same applies to reading, writing and removing keys. You have the functions `getItem`, `setItem`
-and `removeItem` and there is `clear` but that pretty much sums it up. 
+and `removeItem` and there is `clear` but that pretty much sums it up.
 
-In practice there are many other ways to interact with storage objects, such as `store[myKey] = myValue`, 
-or `delete store[myKey]` or `Object.keys(store)` etc, but please remember that when you use these 
-constructs, you venture outside the interface provided by the Web Storage API and run the risk of 
+In practice there are many other ways to interact with storage objects, such as `store[myKey] = myValue`,
+or `delete store[myKey]` or `Object.keys(store)` etc, but please remember that when you use these
+constructs, you venture outside the interface provided by the Web Storage API and run the risk of
 incompatibility.
 
 This project is committed to be as compatible as possible with the `localStorage` object present in
@@ -110,7 +124,7 @@ real-life browsers, but due to inherent limitations to the Javascript language, 
 guarantee the same behavior in all instances if you go beyond the Web Storage API.
 
 ### Example of going outside of the API
-Here is some code to print all the keys and values in the `store` object that does not limit itself 
+Here is some code to print all the keys and values in the `store` object that does not limit itself
 to the Web Storage API:
 ```js
 var keys = Object.keys(store);
@@ -132,8 +146,8 @@ for (var i=0; i<store.length; i++) {
 ```
 
 ## Beyond the Web Storage API
-MemoryStorage is type-agnostic; it doesn't care about the type of data you store. 
-If you want to remain within the Web Storage API, you should only read and write strings, 
+MemoryStorage is type-agnostic; it doesn't care about the type of data you store.
+If you want to remain within the Web Storage API, you should only read and write strings,
 however if you want you can store other types just as well:
 ```javascript
 store.myObject = {my: 'object'};
@@ -152,7 +166,13 @@ alert(store.tree.nested.objects.working); // alerts 'Sure!'
 ## Contributors
 I'd like to draw your attention to the people that contributed to this project with bug reports,
 documentation, pull requests or other forms of support.
-* [Matthias Seemann](https://github.com/semmel): [Items with store API key names are considered by key() #3](https://github.com/Download/memorystorage/pull/3)
+* [Stafford Brunk](https://github.com/wingrunr21)
+	 * [Push v0.9.10 to NPM #1](https://github.com/Download/memorystorage/issues/1) (reported issue)
+* [Matthias Seemann](https://github.com/semmel):
+   * [Items with store API key names are considered by key() #3](https://github.com/Download/memorystorage/pull/3) (code contribution)
+   * [getItem should return null for not-existing keys #4](https://github.com/Download/memorystorage/pull/4) (code contribution)
+* [Chris Smola](https://github.com/Smolations)
+   * [Add npm install to README #5](https://github.com/Download/memorystorage/issues/5) (reported issue)
 
 ## Copyright
 Copyright 2015 by Stijn de Witt. Some rights reserved.
