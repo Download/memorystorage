@@ -2,6 +2,19 @@
 Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR/webstorage/), making it a drop-in replacement for `localStorage` and `sessionStorage` in environments where these are not available.
 [Project website](http://download.github.io/memorystorage)
 
+[![npm](https://img.shields.io/npm/v/memorystorage.svg?maxAge=2592000)](https://npmjs.com/package/memorystorage)
+[![license](https://img.shields.io/npm/l/memorystorage.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![travis](https://img.shields.io/travis/Download/memorystorage.svg)](https://travis-ci.org/Download/memorystorage)
+[![greenkeeper](https://img.shields.io/david/Download/memorystorage.svg?maxAge=2592000)](https://greenkeeper.io/)
+![mind BLOWN](https://img.shields.io/badge/mind-BLOWN-ff69b4.svg)
+
+<sup><sub><sup><sub>.</sub></sup></sub></sup>
+
+![logo](https://rawgit.com/download/memorystorage/0.11.0/memorystorage.png)
+
+<sup><sub><sup><sub>.</sub></sup></sub></sup>
+
+
 ## Installation
 **For Node**
 ```sh
