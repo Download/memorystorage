@@ -188,7 +188,7 @@ documentation, pull requests or other forms of support.
    * [Add npm install to README #5](https://github.com/Download/memorystorage/issues/5) (reported issue)
 
 ## Copyright
-Copyright 2015 by Stijn de Witt. Some rights reserved.
+©2016 by Stijn de Witt and contributors. Some rights reserved.
 
 ## License
 Licensed under the [Creative Commons Attribution 4.0 International (CC-BY-4.0)](https://creativecommons.org/licenses/by/4.0/) Open Source license.
