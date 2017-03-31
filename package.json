@@ -46,7 +46,7 @@
   "homepage": "http://download.github.io/memorystorage",
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-contrib-uglify": "~2.0.0",
+    "grunt-contrib-uglify": "~2.2.1",
     "grunt-umd": "^2.3.3",
     "load-grunt-tasks": "~3.5.2",
     "node-qunit-phantomjs": "^1.4.0"
