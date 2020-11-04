@@ -9,6 +9,9 @@
     "min": "dist/memorystorage.min.js",
     "map": "dist/memorystorage.min.js.map"
   },
+  "exports": [
+    "./dist/memorystorage.umd.js",
+  ],
   "directories": {
     "test": "tests"
   },
