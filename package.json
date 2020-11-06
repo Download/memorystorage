@@ -1,6 +1,6 @@
 {
   "name": "memorystorage",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Memory-backed implementation of the Web Storage API",
   "src": "src/memorystorage.js",
   "main": "dist/memorystorage.umd.js",
@@ -10,7 +10,7 @@
     "map": "dist/memorystorage.min.js.map"
   },
   "exports": [
-    "./dist/memorystorage.umd.js",
+    "./dist/memorystorage.umd.js"
   ],
   "directories": {
     "test": "tests"
@@ -35,6 +35,10 @@
     {
       "name": "Matthias Seemann",
       "url": "https://github.com/semmel"
+    },
+    {
+      "name": "Corentin Minne",
+      "url": "https://github.com/CorentinMinne"
     }
   ],
   "copyright": "©2016 by Stijn de Witt and contributors. Some rights reserved.",

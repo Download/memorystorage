@@ -1,4 +1,4 @@
-# memorystorage <sub><sup>v0.11.0</sup></sub>
+# memorystorage <sub><sup>v0.12.0</sup></sub>
 Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR/webstorage/), making it a drop-in replacement for `localStorage` and `sessionStorage` in environments where these are not available.
 [Project website](http://download.github.io/memorystorage)
 
@@ -10,7 +10,7 @@ Memory-backed storage that implements the [Web Storage API](http://www.w3.org/TR
 
 <sup><sub><sup><sub>.</sub></sup></sub></sup>
 
-![logo](https://rawgit.com/download/memorystorage/0.11.0/memorystorage.png)
+![logo](https://rawgit.com/download/memorystorage/0.12.0/memorystorage.png)
 
 <sup><sub><sup><sub>.</sub></sup></sub></sup>
 
@@ -28,7 +28,7 @@ npm install --save memorystorage
 ### CDN
 This is by far the easiest method and gives good performance to boost. Use this if you are in doubt.
 ```xml
-<script src="https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min.js"></script>
+<script src="https://cdn.rawgit.com/download/memorystorage/0.12.0/dist/memorystorage.min.js"></script>
 ```
 
 ### Local script file
@@ -38,9 +38,9 @@ Download memorystorage.min.js, place it in a folder `lib` in the root of your we
 ```
 
 #### Download
-* [memorystorage.umd.js](https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.umd.js) (~4kB, commented)
-* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min.js) (~2kB, minified)
-* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min.js.map) (~2kB, debug map file)
+* [memorystorage.umd.js](https://cdn.rawgit.com/download/memorystorage/0.12.0/dist/memorystorage.umd.js) (~4kB, commented)
+* [memorystorage.min.js](https://cdn.rawgit.com/download/memorystorage/0.12.0/dist/memorystorage.min.js) (~2kB, minified)
+* [memorystorage.min.js.map](https://cdn.rawgit.com/download/memorystorage/0.12.0/dist/memorystorage.min.js.map) (~2kB, debug map file)
 
 ### Module loaders
 Memorystorage implements the Universal Module Pattern and as such, is available to be consumed
@@ -64,7 +64,7 @@ To be able to load MemoryStorage from CDN as an AMD module, configure the CDN ur
 ```javascript
 require.config({
 	paths: {
-		'memorystorage': 'https://cdn.rawgit.com/download/memorystorage/0.11.0/dist/memorystorage.min'
+		'memorystorage': 'https://cdn.rawgit.com/download/memorystorage/0.12.0/dist/memorystorage.min'
 	}
 });
 ```
@@ -186,6 +186,8 @@ documentation, pull requests or other forms of support.
    * [getItem should return null for not-existing keys #4](https://github.com/Download/memorystorage/pull/4) (code contribution)
 * [Chris Smola](https://github.com/Smolations)
    * [Add npm install to README #5](https://github.com/Download/memorystorage/issues/5) (reported issue)
+* [Corentin Minne](https://github.com/CorentinMinne)
+   * [Invalid exports in package.json #14](https://github.com/Download/memorystorage/issues/14) (code contribution)
 
 ## Copyright
 ©2016 by Stijn de Witt and contributors. Some rights reserved.
